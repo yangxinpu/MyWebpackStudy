@@ -1,0 +1,10 @@
+<div id="introduce">
+    <div class="container">
+        <h1>#网页介绍:</h1>
+        <p>此网页代码是使用ES6模块化编写，并由webpack打包成静态资源的，并且模块是组件化处理的，一个component包含template，style，index.js三个模块（可能还包含本组件使用的其他静态资源模块）；</p>
+        <p>基本原理就是：template模块写html结构，style写样式，这里使用的是scss，index.js引入template写好的模板，在创建div元素，将模板使用innerHTML API放入模板中，再将创建的元素追加到app元素中，而样式则打包到全局css样式中；</p>
+        <p>没错，这样的做法非常荒唐，先不说XSS攻击问题（而且静态网页也攻击不了），操作DOM就很耗能了，虽然只是在初始DOM树上操作；本来打算考虑引用Vue的虚拟节点技术，但是太麻烦了，而且只是想练习webpack的配置，所以对于性能优化之类的是不存在的；</p>
+        <p>webpack配置：使用html-webpack-plugin和html-loader来对在html结构以及html结构上出现的资源进行打包；使用scss-loader和css-loader来对scss进行编译并打包成模块，使用mini-css-extract-plugin来生成css的bundle；</p>
+        <p>相关优化：配置了babel的预设，以及开发者模式的HRM，代码分割，CSS压缩插件等等；</p>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+@use "../../assets/scss/color.scss" as color;
+#footer{
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .container{
+        height: fit-content;
+        @keyframes text {
+            0%{
+                stroke-dashoffset: 0;
+            }
+            100%{
+                stroke-dashoffset: 100;
+            }
+        }
+        .myText{
+            stroke: color.$green1;
+            fill: color.$green4;
+            stroke-width: 3px;
+            stroke-dasharray: 10 10;
+            font-size: 5rem;
+            animation: text 2s linear 0s infinite;
+        }
+    }
+}

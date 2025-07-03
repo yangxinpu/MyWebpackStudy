@@ -1,0 +1,24 @@
+<div id="knowledge">
+    <div class="container">
+        <h1>#知识列表：</h1>
+        <h3>配置文件：</h3>
+        <p>entry指定入口文件，可以写成数组或对象形式来指定多个入口文件；output指定输出文件路径；module主要用来配置各种loader，而loader是用来处理webpack不能处理的文件；plugin配置各种插件，mode配置webpack打包的模式；optimization配置优化项；</p>
+        <h3>rules规则对象：</h3>
+        <p>
+            <span>test：指定匹配的规则对象，使用正则表达式；</span><br>
+            <span>use：该对象处理模块时使用的loader数组；</span><br>
+            <span>type：定义匹配到的模块的类型以及如何处理模块，可以不用再使用额外的loader；</span><br>
+            <span>exclude：该规则对象不处理的文件或文件目录；</span><br>
+            <span>generator：有filename属性，指定输出该匹配对象处理后的模块文件名；</span>
+        </p>
+        <h3>loader：</h3>
+        <p>本质是一个函数，用来处理webpack不能处理的文件，由其他模块通过commenjs系统的export.modules导出，并在配置文件的use或loader中直接引入该函数；</p>
+        <p>自定义loader函数的参数分别为匹配到文件的内容的字符串，sourcemap，meta（其他loader传过来的参数）；</p>
+        <p>loader函数中的this指向的是loader上下文对象，通过this可以访问loader上下文对象的API，如this.callback同时返回处理后的content，sourcemap，传递的meta；this.async返回一个异步的callback；this.emitFile生成一个文件；this.getOption获取并规范loader的option对象；</p>
+        <h3>plugin：</h3>
+        <p>webpack的插件，本质是一个类，用于在打包的各个阶段执行特定任务，通过export.module来导出插件类，再通过import引入和new来使用</p>
+        <h3>webpack的构建流程：</h3>
+        <p>初始化阶段：读取配置文件（webpack.config.js）和shell语句（npm run dev等），创建options空对象，并将配置文件中的各个配置对象（entry，output，modules等）拷贝到options中，这一过程又称为读取并合并参数，使用合并的options对象来创建compiler对象（之后触发initialize钩子），再去遍历plugins数组，如果插件是函数则调用并获得插件实例，如果已经是实例则直接调用apply方法，注册各个生命周期钩子，并等待钩子触发；</p>
+        <p>编译构建阶段：初始化阶段后后调用run方法开始webpack真正的构建流程（并且每次重写构建都会触发watchRun方法）；首先通过compile方法创建本次构建的compilation对象；再调用make方法从entry入口文件开始递归分析各个模块及其依赖的模块，生成本次编译的所有模块，并存储到compilation.modules和compilation.entries中；之后调用compilation上的buildModule方法来使用各个loader，将特定模块转化为JS模块，再使用acorn解析各个JS模块生成AST（抽象语法树，存储各个模块及其依赖关系）；之后调用compilation上的seal方法根据入口和模块之间的依赖关系生成chunks，再把chunks组装成bundle等待输出；在确定好输入内容后，调用emit方法根据output配置对象的输出路径输出最终的dist文件（输出前触发的emit钩子，这是修改最终文件的最后一次机会）；</p>
+    </div>
+</div>

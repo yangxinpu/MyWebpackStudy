@@ -1,0 +1,119 @@
+@use "../../assets/scss/color.scss" as color;
+$containWidth:500px;
+$containHeight:500px;
+$imgSize:10px;
+$moveR:250px;
+$scales:5;
+#home{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./img/bk.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+    .container{
+        position: relative;
+        width: $containWidth;
+        height: $containHeight;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        div{
+            position: absolute;
+            top: calc($containHeight/2 - $imgSize/2);
+            left: calc($containWidth/2 - $imgSize/2);
+        }
+        img{
+            width: $imgSize;
+        }
+        @keyframes Webpack {
+            0%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+        .webpack{
+            z-index: 1;
+            position: static;
+            font-size: 30px;
+            transition:none;
+            color: white;
+            opacity: 0;
+            animation: Webpack 1s linear 2s 1 forwards;    
+            img{
+                width: $imgSize*10;
+                vertical-align: middle;
+            }
+            span{
+                font-weight: 500;
+                text-shadow: 2px 1px 10px color.$green2;
+            }
+        }
+        @mixin moveAnimation($x,$y,$delay){
+            opacity: 0;
+            animation: move#{$x*10}#{$y*10} 1.2s ease-in-out $delay 1 forwards;
+            @keyframes move#{$x*10}#{$y*10} {
+                0%{
+                    transform: translate(0,0);
+                    opacity: 0;
+                }
+                100%{
+                    transform: translate($moveR*$x,$moveR*$y) scale($scales);
+                    opacity: 1;
+                }
+            }
+        }
+        .html{
+            //transform:translate($moveR,0) scale($scales);
+            @include moveAnimation(1,0,0.1s);
+        }
+        .css{
+            //transform: translate($moveR*0.8,$moveR*0.5) scale($scales);
+            @include moveAnimation(0.8,0.5,0.2s);
+        }
+        .js{
+            //transform: translate($moveR*0.5,$moveR*0.8) scale($scales);
+            @include moveAnimation(0.5,0.8,0.3s);
+        }
+        .ts{
+            //transform: translate(0,$moveR) scale($scales);
+            @include moveAnimation(0,1,0.4s);
+        }
+        .vue{
+            //transform: translate(-$moveR*0.5,$moveR*0.8) scale($scales);
+            @include moveAnimation(-0.5,0.8,0.5s);
+        }
+        .node{
+            //transform: translate(-$moveR*0.8,$moveR*0.5) scale($scales);
+            @include moveAnimation(-0.8,0.5,0.6s);
+        }
+        .json{
+            //transform: translate(-$moveR,0) scale($scales);
+            @include moveAnimation(-1,0,0.7s);
+        }
+        .scss{
+            //transform: translate(-$moveR*0.8,-$moveR*0.5) scale($scales);
+            @include moveAnimation(-0.8,-0.5,0.8s);
+        }
+        .figma{
+            //transform: translate(-$moveR*0.5,-$moveR*0.8) scale($scales);
+            @include moveAnimation(-0.5,-0.8,0.9s);
+        }
+        .git{
+            //transform: translate(0,-$moveR) scale($scales);
+            @include moveAnimation(0,-1,1s);
+        }
+        .lottie{
+            //transform: translate($moveR*0.5,-$moveR*0.8) scale($scales);
+            @include moveAnimation(0.5,-0.8,1.1s);
+        }
+        .svg{
+            //transform: translate($moveR*0.8,-$moveR*0.5) scale($scales);
+            @include moveAnimation(0.8,-0.5,1.2s);
+        }
+    }
+}
